@@ -1,6 +1,6 @@
 # Agent workspace starter
 
-Seven small files that make a repository readable by a coding agent, and make the agent's
+Eight small files that make a repository readable by a coding agent, and make the agent's
 work checkable by a person. Drop them into any repository; nothing here depends on a
 language, a framework, or a particular agent.
 
@@ -77,6 +77,7 @@ The same diagram as a poster, with what it caught in its first week: [docs/loop.
 | `docs/DEFINITION-OF-DONE.md` | What "done" means, verified by command output, never by a sentence |
 | `.claude/agents/reviewer.md` | An agent that only reviews, and cannot write, push or merge |
 | `.claude/skills/prove-it/SKILL.md` | A skill (`/prove-it`) that proves each new test can fail: reverts what the test protects, expects red, restores everything |
+| `.claude/skills/workspace-audit/SKILL.md` | A skill (`/workspace-audit`) that measures what every session pays before work starts, finds rules nothing enforces and gates that cannot fail, and ranks what to cut, convert or keep. Read-only |
 | `lessons/` + `scripts/check-lessons.mjs` | Every mistake becomes a check, and a script that says when it has not |
 | `.claude/hooks/session-start.mjs` | Tells a new session what the last one left unfinished |
 
@@ -152,18 +153,32 @@ Three things do most of the work:
 4. Run `node scripts/check-lessons.mjs`. It passes with an empty `lessons/`.
 5. Add the hook to your agent's settings so it runs at session start.
 
-## What it costs
+## What it costs, measured
 
-A reviewer pass costs tokens and minutes. Writing a lesson costs ten minutes when you
-are annoyed and want to move on. Both are cheaper than the thing they catch. The shape
-grew over two months on my own repositories; the no-write reviewer is its
-newest part. In two days of its first week it reviewed nine pull requests and returned
-two Critical and seventeen Important findings, every one fixed before merge, among
-them: a wrapper around a
-third-party API that read an error shape the provider never sends (the tests passed because the same
-agent had written the fake server to speak the same invented shape), a scheduled query
-that would have spent a free tier's whole daily quota once its table grew, and a
-performance claim that was true on localhost and false on the deployed site.
+Twelve agent rounds over two days on my own repositories: **5.26 million tokens**. The
+reviewer alone was 3.1 million for fifteen Critical or Important findings, about 207,000
+tokens a finding. Two things in that ledger are worth more than the total:
+
+| Reviewer round | Tokens | Found |
+| --- | --- | --- |
+| Two pull requests, first look | 378,101 | 8 |
+| One index line and one table cell | 425,654 | 2 |
+| Confirming three fixes that tests had already proved | 430,238 | 0 |
+
+**An agent's cost follows the length of its history, not the size of its task.** That was
+one reviewer resumed six times. And **every defect that mattered was found on a first
+look; none on a re-check.** So keep the deep first look, and take the saving from around it:
+
+- A fresh agent for every review, reading one package file, instead of a resumed one.
+- Depth by risk: money, auth and privacy get the strongest model; a typo does not.
+- A fix proved by a test that failed before it and passes after it merges on that proof.
+  A second review is for fixes that need judgement.
+- A script before an agent. A researcher resumed for 22 API calls cost 373,270 tokens; a
+  120-line script then did the same kind of work for none.
+- Every real finding becomes a check. A defect the gate catches is one no reviewer is
+  ever paid to find again. This is the saving that compounds.
+
+`/workspace-audit` looks for all of these in your own setup.
 
 Not everything needs this. A script you will run twice does not. A repository other
 people depend on does.

@@ -294,7 +294,7 @@ ratios are not money; read that column as relative weight, not as a bill.
 Four things fall out of it:
 
 - **The session dispatching the agents cost three times all of them together**: about
-  231 million weighted against about 77 million for the seven agent sessions. Its
+  233 million weighted against about 77 million for the seven agent sessions. Its
   context averaged 509,983 tokens and every one of its 3,320 calls paid to re-read it.
   One of its tool calls cost about 70,000 weighted tokens — so **three of its tool
   calls cost one whole fresh review.**
@@ -330,3 +330,25 @@ the answer differs by everything.
 
 Not everything needs this. A script you will run twice does not. A repository other
 people depend on does.
+
+## Going further
+
+- **[What running agents costs, and the five rules it cost me](docs/what-running-agents-costs.md)**
+  — the day behind the table above, told as five surprises with the rule each one
+  produced: the dispatching session, the resumed reviewer at 206,886 tokens per finding
+  against 8,284 for a fresh one, the agent a script replaced, the green suite that proved
+  nothing, and the release that was announced and had not happened. One person's
+  measurement on their own projects, and a small sample.
+
+- **The operations layer, $79** — a downloadable archive with the tools those measurements
+  came from, for when you are running several agents across several repositories rather
+  than checking one change: the two cost tools (the ledger report and the transcript
+  tally), a review package that computes a change's risk tier from its own diff, a merge
+  that is not called done until the merge is read back out of the repository, a
+  three-state workspace scanner, eight past incidents as test fixtures with seven pure
+  gate functions over them, four brief templates, and the measurement method written out
+  in full. One payment; tax is worked out at the checkout. Delivered as a zip download
+  straight after payment: **[Agent Workspace Pro](https://buy.polar.sh/polar_cl_BQAONvcfZOrIpiqBkM7hm90fRIlZboldzkpvY37hn2A)**
+
+Everything in this repository stays free and MIT. If it is all you need, that is a
+complete outcome.

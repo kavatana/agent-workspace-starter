@@ -6,13 +6,15 @@ language, a framework, or a particular agent.
 
 It is opinionated because vague rules do nothing. Change the opinions; keep the shape.
 
+![One change, start to finish: a brief, a builder agent, the gate, a read-only reviewer, a person who merges, then measuring and learning](docs/loop.png)
+
 | File | What it does |
 | --- | --- |
 | `AGENTS.md` | The contract the agent reads before it touches anything |
 | `docs/DEFINITION-OF-DONE.md` | What "done" means, verified by command output, never by a sentence |
 | `.claude/agents/reviewer.md` | An agent that only reviews, and cannot write, push or merge |
 | `lessons/` + `scripts/check-lessons.mjs` | Every mistake becomes a check, and a script that says when it has not |
-| `.claude/hooks/session-start.sh` | Tells a new session what the last one left unfinished |
+| `.claude/hooks/session-start.mjs` | Tells a new session what the last one left unfinished |
 
 ## If you already run agents well
 
@@ -20,15 +22,15 @@ You will know most of the shape. These are the parts that are not obvious, each 
 learned by paying for it:
 
 **An agent's fake and an agent's code agree by construction.** The dangerous case is
-not a missing test, it is a passing one. When the same author writes the client and
-the stub it is tested against, they are consistent with each other and need not be
+not a missing test, it is a passing one. When the same author writes the code that
+calls an API and the stub it is tested against, they are consistent with each other and need not be
 consistent with reality — and the suite is green while nothing works. So: one test per
 external contract, pinned from the vendor's documentation by hand, fed to the code
 *without* passing through your own fake.
 
 **Verify the agent's tests by mutation, every time, not occasionally.** After a suite
 goes green, break the thing the test claims to protect and watch it fail. It takes
-thirty seconds. On a month of agent-written tests this caught several that passed
+thirty seconds. In one week of agent-written tests this caught several that passed
 identically before and after the change they were written for.
 
 **Give the reviewer no write tools at all.** Not "please do not edit" in the prompt —
@@ -89,9 +91,12 @@ Three things do most of the work:
 ## What it costs
 
 A reviewer pass costs tokens and minutes. Writing a lesson costs ten minutes when you
-are annoyed and want to move on. Both are cheaper than the thing they catch. Over one
-month on a small studio's repositories this shape caught, among others: a client that
-read an API error shape the provider never sends (the tests passed because the same
+are annoyed and want to move on. Both are cheaper than the thing they catch. The shape
+grew over two months on my own repositories; the no-write reviewer is its
+newest part. In two days of its first week it reviewed nine pull requests and returned
+two Critical and seventeen Important findings, every one fixed before merge, among
+them: a wrapper around a
+third-party API that read an error shape the provider never sends (the tests passed because the same
 agent had written the fake server to speak the same invented shape), a scheduled query
 that would have spent a free tier's whole daily quota once its table grew, and a
 performance claim that was true on localhost and false on the deployed site.

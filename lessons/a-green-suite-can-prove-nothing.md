@@ -7,16 +7,16 @@ first_seen: 2026-09-21
 
 # A green suite can prove nothing when one author wrote both sides
 
-A service talked to a payment provider. An agent wrote the client, and the same agent
-wrote the fake server the tests run against. Two hundred tests passed for days.
+A service talked to a third-party API. An agent wrote the code that calls it, and the
+same agent wrote the fake server the tests run against. Two hundred tests passed for days.
 
-The provider documents its error body as `{ "error": "payment_not_found", "message":
-"..." }`, where `error` is a string. The client only understood
+The provider documents its error body as `{ "error": "item_not_found", "message":
+"..." }`, where `error` is a string. The calling code only understood
 `{ "error": { "code": "..." } }` — a shape that provider never sends. The fake server
 spoke the same invented shape, so the two agreed perfectly and neither agreed with the
-provider. In production every error code would have been invisible: "no such payment"
-would have arrived as a generic failure, and a checkout that depended on that answer
-could never have closed.
+provider. In production every error code would have been invisible: "no such item"
+would have arrived as a generic failure, and the logic that depended on that answer
+could never have run.
 
 ## Why it happened
 

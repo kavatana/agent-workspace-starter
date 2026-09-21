@@ -11,9 +11,14 @@ Read this before changing anything. It binds every session, human or agent.
 ## While you work
 
 - **One outcome per branch, one branch per outcome.** Never work on `main`.
-- **A test that does not fail without your change is not a test.** After a suite goes
-  green, break the thing the test protects and watch it fail. If it stays green, the
-  test measures nothing — fix the test before the feature.
+- **Every test must be able to go red, and you have to have seen it go red.** After a
+  suite goes green, introduce the defect the test exists to catch and watch it fail.
+  The bar is not "it fails without your change": a characterisation test written around
+  behaviour that already existed, and a test carried unchanged through a refactor, both
+  pass on either side of the diff and are both worth having. The bar is that the test
+  fails under a defect it is supposed to catch. If you cannot name such a defect, or
+  the test survives it, the test measures nothing — fix the test before the feature.
+  `/prove-it` does this pass for you.
 - **Never invent a number.** No performance figure, count, date or price that you did
   not measure or read at its source in this session. Say "not measured" instead.
 - **A metric that depends on arrival time** — page load, layout shift, anything a font,
@@ -24,13 +29,18 @@ Read this before changing anything. It binds every session, human or agent.
 
 ## Before you say it is done
 
-- <!-- FILL IN: the commands that must pass, e.g. `npm test`, `npm run lint`, `npm run build` -->
+<!-- When you copy this file, replace the two commands with your own repository's. -->
+
+- `node --test` — every script here has a test, and all of them pass.
+- `node scripts/check-lessons.mjs` — every lesson either names a check that exists or
+  is honestly marked as a note.
 - Report the output, not a summary of it. "12 passed" is evidence; "tests pass" is not.
 - If a step was skipped, say which and why.
 
 ## Never, in this repository
 
-- <!-- FILL IN, e.g.: -->
+- Name a product, a vendor, a teammate, an employer or a customer anywhere in this
+  repository. It is public, and the examples in it come out of private work.
 - Commit a secret, a token, or a `.env` value. Reference names only.
 - Change files another session left uncommitted, or stash or revert them.
 - Push to `main`, merge your own work, or deploy.

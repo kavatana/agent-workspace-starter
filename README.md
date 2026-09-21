@@ -1,6 +1,6 @@
 # Agent workspace starter
 
-Six files that make a repository readable by a coding agent, and make the agent's
+Seven small files that make a repository readable by a coding agent, and make the agent's
 work checkable by a person. Drop them into any repository; nothing here depends on a
 language, a framework, or a particular agent.
 
@@ -13,6 +13,7 @@ It is opinionated because vague rules do nothing. Change the opinions; keep the 
 | `AGENTS.md` | The contract the agent reads before it touches anything |
 | `docs/DEFINITION-OF-DONE.md` | What "done" means, verified by command output, never by a sentence |
 | `.claude/agents/reviewer.md` | An agent that only reviews, and cannot write, push or merge |
+| `.claude/skills/prove-it/SKILL.md` | A skill (`/prove-it`) that proves each new test can fail: reverts what the test protects, expects red, restores everything |
 | `lessons/` + `scripts/check-lessons.mjs` | Every mistake becomes a check, and a script that says when it has not |
 | `.claude/hooks/session-start.mjs` | Tells a new session what the last one left unfinished |
 

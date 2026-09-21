@@ -121,13 +121,14 @@ is the only thing that can answer this about you, and it costs a line after each
 `/workspace-audit`, the lessons with their checker and the session-start hook. MIT, no
 account, no install step, tests on Node 18, 20 and 22.
 
-**Paid, $79:** a private repository with the operations layer these numbers came from —
+**Paid, $79:** a downloadable archive with the operations layer these numbers came from —
 the two cost tools, a review package that computes a change's risk tier from its own
 diff, the merge-and-receipt pair from rule 5, a three-state workspace scanner, eight past
-incidents as pure gate functions with tests, brief templates, and the measurement method
-written out in full.
+incidents as test fixtures with seven pure gate functions over them, four brief
+templates, and the measurement method written out in full. One payment, a zip download
+straight after it; tax is worked out at the checkout.
 
-**Where:** {{CHECKOUT_URL}}
+**Where:** [Agent Workspace Pro, through Polar](https://buy.polar.sh/polar_cl_BQAONvcfZOrIpiqBkM7hm90fRIlZboldzkpvY37hn2A)
 
 **If the free half is all you need, that is a complete outcome — it is what I use most
 days.**

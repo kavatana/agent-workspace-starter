@@ -340,14 +340,15 @@ people depend on does.
   nothing, and the release that was announced and had not happened. One person's
   measurement on their own projects, and a small sample.
 
-- **The operations layer, $79** — a private repository with the tools those measurements
+- **The operations layer, $79** — a downloadable archive with the tools those measurements
   came from, for when you are running several agents across several repositories rather
   than checking one change: the two cost tools (the ledger report and the transcript
   tally), a review package that computes a change's risk tier from its own diff, a merge
   that is not called done until the merge is read back out of the repository, a
-  three-state workspace scanner, eight past incidents as pure gate functions with their
-  tests, brief templates, and the measurement method written out in full. Delivered as
-  access to a private repository: {{CHECKOUT_URL}}
+  three-state workspace scanner, eight past incidents as test fixtures with seven pure
+  gate functions over them, four brief templates, and the measurement method written out
+  in full. One payment; tax is worked out at the checkout. Delivered as a zip download
+  straight after payment: **[Agent Workspace Pro](https://buy.polar.sh/polar_cl_BQAONvcfZOrIpiqBkM7hm90fRIlZboldzkpvY37hn2A)**
 
 Everything in this repository stays free and MIT. If it is all you need, that is a
 complete outcome.

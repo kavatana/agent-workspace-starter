@@ -277,7 +277,7 @@ One day, one person, seven agent sessions and the session that dispatched them:
 
 | Session | API calls | Cache write | Cache read | Output | Context per call | Weighted |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| The session dispatching the agents | 3,300 | 29,972,285 | 1,648,314,595 | 5,692,371 | 508,582 | 230,793,712 |
+| The session dispatching the agents (a snapshot: it was still open) | 3,320 | 30,794,465 | 1,662,316,112 | 5,734,542 | 509,983 | 233,432,490 |
 | Reviewer, one agent resumed six-plus times | 667 | 17,555,148 | 241,682,855 | 783,143 | 388,665 | 50,029,560 |
 | Builder, a round of review fixes | 386 | 1,044,846 | 127,570,811 | 332,454 | 333,203 | 15,726,180 |
 | Builder, one feature, two rounds | 202 | 679,429 | 45,484,563 | 180,720 | 228,536 | 6,301,746 |
@@ -295,7 +295,7 @@ Four things fall out of it:
 
 - **The session dispatching the agents cost three times all of them together**: about
   231 million weighted against about 77 million for the seven agent sessions. Its
-  context averaged 508,582 tokens and every one of its 3,300 calls paid to re-read it.
+  context averaged 509,983 tokens and every one of its 3,320 calls paid to re-read it.
   One of its tool calls cost about 70,000 weighted tokens — so **three of its tool
   calls cost one whole fresh review.**
 - **Cost is calls multiplied by context.** The resumed reviewer carried 388,665 tokens

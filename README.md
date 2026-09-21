@@ -6,7 +6,70 @@ language, a framework, or a particular agent.
 
 It is opinionated because vague rules do nothing. Change the opinions; keep the shape.
 
-![One change, start to finish: a brief, a builder agent, the gate, a read-only reviewer, a person who merges, then measuring and learning](docs/loop.png)
+## The whole system
+
+```mermaid
+flowchart LR
+  subgraph CONTRACT["THE REPO BINDS EVERY AGENT"]
+    A1["<b>AGENTS.md</b><br/>what must pass<br/>what must never happen"]
+    A2["<b>DEFINITION-OF-DONE.md</b><br/>proved by output,<br/>never by a sentence"]
+    A3["<b>lessons/</b><br/>every mistake is filed here,<br/>with the check that stops it"]
+  end
+
+  subgraph WRITE["WRITE · max 3 agents · one worktree each"]
+    BRIEF["<b>Brief, in a file</b><br/>task · rules ·<br/>how it gets verified"]
+    B1["<b>Builder agent</b><br/>worktree A"]
+    B2["<b>Builder agent</b><br/>worktree B"]
+    B3["<b>Builder agent</b><br/>worktree C"]
+    HOOK(["<b>Session-start hook</b><br/>abandoned worktrees ·<br/>orphaned ports"])
+  end
+
+  subgraph GATE["GATE · automatic"]
+    T["<b>tests · lint · build</b><br/>then <b>/prove-it</b>:<br/>take away what each new test<br/>protects → it must go RED"]
+  end
+
+  subgraph REVIEW["REVIEW · read-only"]
+    R["<b>Reviewer agent</b><br/>NO edit · push · merge tools<br/>sees diff + brief, never the chat"]
+    F{"Critical or<br/>Important?"}
+  end
+
+  subgraph SHIP["SHIP · a person decides"]
+    H["<b>A person merges</b><br/>checks the fact,<br/>not the exit code"]
+    M["<b>Measure on the live URL</b><br/>several runs · a range"]
+  end
+
+  subgraph LEARN["LEARN · so it never costs twice"]
+    L["<b>Lesson</b><br/>what happened · why it seemed right<br/>enforced_by: script | none"]
+    C["<b>New check</b>"]
+  end
+
+
+  BRIEF --> B1 & B2 & B3
+  B1 & B2 & B3 --> T
+  T --> R
+  R --> F
+  F -- "no" --> H
+  F -- "yes · findings with file:line" --> B1
+  H --> M
+  M -- "surprise or regression" --> L
+  L --> C
+  C -. joins the gate .-> T
+
+  classDef file fill:#EEF1F5,stroke:#B9C2CE,color:#0F1720
+  classDef agent fill:#E8EEFC,stroke:#1D4ED8,color:#0F1720,stroke-width:2px
+  classDef check fill:#E6F4EC,stroke:#15803D,color:#0F1720,stroke-width:2px
+  classDef human fill:#0F1720,stroke:#0F1720,color:#FFFFFF
+  classDef learn fill:#FDF0E3,stroke:#B54708,color:#0F1720,stroke-width:2px
+  classDef ask fill:#FFFFFF,stroke:#B42318,color:#0F1720,stroke-width:2px
+  class A1,A2,A3,BRIEF,HOOK file
+  class B1,B2,B3,R agent
+  class T,C check
+  class H,M human
+  class L learn
+  class F ask
+```
+
+The same diagram as a poster, with what it caught in its first week: [docs/loop.png](docs/loop.png)
 
 | File | What it does |
 | --- | --- |

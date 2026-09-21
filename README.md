@@ -155,24 +155,29 @@ Three things do most of the work:
 
 ## What it costs, measured
 
-Twelve agent rounds over two days on my own repositories: **5.26 million tokens**. The
-reviewer alone was 3.1 million for fifteen Critical or Important findings, about 207,000
-tokens a finding. Two things in that ledger are worth more than the total:
+Thirteen agent rounds in one day on my own repositories: **5.3 million tokens**. One
+reviewer, resumed six times, was 3.1 million of that for fifteen Critical or Important
+findings: about 207,000 tokens a finding.
 
 | Reviewer round | Tokens | Found |
 | --- | --- | --- |
-| Two pull requests, first look | 378,101 | 8 |
-| One index line and one table cell | 425,654 | 2 |
-| Confirming three fixes that tests had already proved | 430,238 | 0 |
+| Resumed: two pull requests, first look | 378,101 | 8 |
+| Resumed: one index line and one table cell | 425,654 | 2 |
+| Resumed: confirming three fixes that tests had already proved | 430,238 | 0 |
+| **Fresh agent, one package file, a cheaper model** | **54,394** | **9** |
 
-**An agent's cost follows the length of its history, not the size of its task.** That was
-one reviewer resumed six times. And **every defect that mattered was found on a first
-look; none on a re-check.** So keep the deep first look, and take the saving from around it:
+**An agent's cost follows the length of its history, not the size of its task.** The last
+row is one measurement on a different change, so it shows a direction and not yet a
+ratio; but it is the same reviewer definition, and two of the nine things it found were
+errors in my own numbers, including a claim that used to be in this README.
+
+Fourteen of the resumed reviewer's fifteen findings came from a first look. The
+fifteenth came from a re-check, in code the fix itself had added. So:
 
 - A fresh agent for every review, reading one package file, instead of a resumed one.
 - Depth by risk: money, auth and privacy get the strongest model; a typo does not.
-- A fix proved by a test that failed before it and passes after it merges on that proof.
-  A second review is for fixes that need judgement.
+- A fix skips its second look only when it touches only what the finding named and a
+  check in CI proves it. A fix that adds code needing judgement keeps its second look.
 - A script before an agent. A researcher resumed for 22 API calls cost 373,270 tokens; a
   120-line script then did the same kind of work for none.
 - Every real finding becomes a check. A defect the gate catches is one no reviewer is

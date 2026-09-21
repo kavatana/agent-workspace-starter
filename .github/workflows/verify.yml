@@ -1,0 +1,31 @@
+# The gate. Everything in this repository that can be checked by a machine is checked
+# here, on every push and every pull request, on every Node version the README claims
+# to support — so that claim is checked rather than asserted.
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["18", "20", "22"]
+    name: node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # No install step: this repository has no dependencies, and that is deliberate.
+      - name: tests
+        run: node --test
+      - name: lessons
+        run: node scripts/check-lessons.mjs

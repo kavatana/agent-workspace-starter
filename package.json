@@ -1,0 +1,16 @@
+{
+  "name": "agent-workspace-starter",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Files that make a repository readable by a coding agent, and the agent's work checkable by a person.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check:lessons": "node scripts/check-lessons.mjs",
+    "verify": "npm test && npm run check:lessons"
+  }
+}

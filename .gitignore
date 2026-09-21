@@ -2,3 +2,7 @@ node_modules/
 .env
 .env.*
 .DS_Store
+
+# Backups and manifests from a /prove-it run. If you ever see this directory in a
+# commit, a run was interrupted: `node scripts/prove-it.mjs --recover`.
+.prove-it/
